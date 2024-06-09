@@ -58,26 +58,25 @@ function MainPage() {
 	}, [coins]);
 
 	const coinClickHandler = () => {
-		isStarted || setIsStarted(true)
+		isStarted || setIsStarted(true);
 		setCoins((prev) => prev + 1);
 	};
 
 	return (
-		<div>
-			<div>$ {coins}</div>
-			<div>
-				<button onClick={coinClickHandler}>
-					<Image
-						className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-						src="/coinichi.png"
-						alt="Coinichi"
-						width={180}
-						height={37}
-						priority
-					/>
+		<>
+			<div className="fixed top-8 left-0 w-full max-w-xl text-center text-4xl font-bold p-3 mx-auto inset-x-0 z-10 text-white ">
+				<p className="drop-shadow-lg">🪙 {coins.toLocaleString()}</p>
+			</div>
+			<div className="flex justify-center z-0">
+				<button onClick={coinClickHandler} className="w">
+					<Image className="drop-shadow-lg" src="/coinichi.png" alt="Coinichi" width={300} height={300} priority />
 				</button>
 			</div>
-		</div>
+			<div className="bg-slate-900 p-3 rounded-t-2xl text-white max-w-xl fixed bottom-0 left-0 w-full mx-auto inset-x-0">
+				<div>{user.name} ⚙️</div>
+				<div className="text-[8px] text-gray-300">id: {user.id}</div>
+			</div>
+		</>
 	);
 }
 
