@@ -8,11 +8,11 @@ export async function POST(req) {
 		return Response.json({ error: "internal server error" }, { status: 500 });
 	}
 
-	const body = await req.json();
+	const id = await req.json();
 
-	const user = await User.findOne({ id: body.id });
+	const user = await User.findOne({ id: id });
 
-	return Response.json(user.coins);
+	return Response.json(user);
 }
 
 export async function PATCH(req) {

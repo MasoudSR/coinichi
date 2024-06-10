@@ -4,23 +4,20 @@ import loadUser from "@/helpers/loadUser";
 import saveUser from "@/helpers/saveUser";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
+import Loading from "./Loading";
+import SignPage from "./SignPage";
 
 function MainPage() {
 	const [user, setUser] = useState({});
 	const [coins, setCoins] = useState(0);
 	const [isStarted, setIsStarted] = useState(false);
 	const timeoutRef = useRef(null);
+	const [page, setPage] = useState("loading");
 
 	useEffect(() => {
 		const userData = loadUser();
 		if (userData === "notExist") {
-			// create new user from api
-			fetch("api/user/new")
-				.then((res) => res.json())
-				.then((data) => {
-					saveUser(data);
-					setUser(data);
-				});
+			setPage("signin");
 		} else {
 			// get user coins from api
 			fetch("api/user/coins", {
@@ -28,12 +25,13 @@ function MainPage() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(userData),
+				body: JSON.stringify(userData.id),
 			})
 				.then((res) => res.json())
-				.then((coinsData) => {
-					setCoins(coinsData);
-					setUser(userData);
+				.then((user) => {
+					setCoins(user.coins);
+					setUser({ id: user.id, name: user.name });
+					setPage("");
 				});
 		}
 	}, []);
@@ -64,11 +62,14 @@ function MainPage() {
 
 	return (
 		<>
+			{page === "loading" && <Loading />}
+			{page === "signin" && <SignPage setUser={setUser} setPage={setPage} setCoins={setCoins} />}
+
 			<div className="fixed top-8 left-0 w-full max-w-xl text-center text-4xl font-bold p-3 mx-auto inset-x-0 z-10 text-white ">
 				<p className="drop-shadow-lg">🪙 {coins.toLocaleString()}</p>
 			</div>
 			<div className="flex justify-center z-0">
-				<button onClick={coinClickHandler} className="w">
+				<button onClick={coinClickHandler}>
 					<Image className="drop-shadow-lg" src="/coinichi.png" alt="Coinichi" width={300} height={300} priority />
 				</button>
 			</div>
