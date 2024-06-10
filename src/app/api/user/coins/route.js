@@ -11,6 +11,9 @@ export async function POST(req) {
 	const id = await req.json();
 
 	const user = await User.findOne({ id: id });
+	if (!user) {
+		return Response.json({ error: "user not found" }, { status: 404 });
+	}
 
 	return Response.json(user);
 }
