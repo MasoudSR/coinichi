@@ -76,7 +76,7 @@ function MainPage() {
 					<Image className="drop-shadow-lg" src="/coinichi.png" alt="Coinichi" width={300} height={300} priority />
 				</button>
 			</div>
-			<SettingsPage page={page} setPage={setPage} user={user} />
+			<SettingsPage page={page} setPage={setPage} user={user} setUser={setUser} />
 		</>
 	);
 }
