@@ -65,8 +65,6 @@ function MainPage() {
 		<>
 			{page === "loading" && <Loading />}
 			{page === "signin" && <SignPage setUser={setUser} setPage={setPage} setCoins={setCoins} />}
-			{/* {page === "settings" && <SettingsPage />} */}
-			{/* <SettingsPage user={user} /> */}
 
 			<div className="fixed top-8 left-0 w-full max-w-xl text-center text-4xl font-bold p-3 mx-auto inset-x-0 z-10 text-white ">
 				<p className="drop-shadow-lg">🪙 {coins.toLocaleString()}</p>

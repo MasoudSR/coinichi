@@ -4,6 +4,7 @@ import Loading from "./Loading";
 function SettingsPage({ page, setPage, user, setUser }) {
 	const [newName, setNewName] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [changeNameToggle, setChangeNameToggle] = useState(false);
 
 	const nameChangeHandler = () => {
 		setIsLoading(true);
@@ -19,6 +20,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 				setUser(userData);
 				setIsLoading(false);
 				setNewName("");
+				setChangeNameToggle(false)
 			});
 	};
 
@@ -46,13 +48,20 @@ function SettingsPage({ page, setPage, user, setUser }) {
 					<div>
 						<input
 							type="text"
-							className="text-black w-full rounded-md p-2 mb-2"
+							className="text-black w-full rounded-lg p-2 mb-2"
 							value={newName}
 							onChange={(e) => setNewName(e.target.value)}
 						/>
-						<button className="bg-blue-500 w-full p-3 rounded-lg" onClick={nameChangeHandler}>
-							Change Name
-						</button>
+						<div className={`flex transition-all relative duration-500 ${
+									changeNameToggle || "-translate-y-[50px]"
+								}`}>
+							<button
+								className={`bg-blue-500 p-3  transition-all duration-500 z-20 rounded-lg w-full ${changeNameToggle ? "max-w-[67%]" : "max-w-[1000px]"}`}
+								onClick={() => changeNameToggle ? nameChangeHandler() : setChangeNameToggle(true)}>
+								{changeNameToggle ? "OK" : "Change Name"}
+							</button>
+							<button className={`bg-red-400 w-[30%] block absolute right-0 top-0 z-10 rounded-lg p-3`} onClick={()=>setChangeNameToggle(false)}>Cancel</button>
+						</div>
 					</div>
 				)}
 			</div>
