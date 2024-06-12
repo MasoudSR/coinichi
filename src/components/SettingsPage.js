@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Loading from "./Loading";
+import { IoSettingsOutline } from "react-icons/io5";
+import { IoIosArrowDown } from "react-icons/io";
 
 function SettingsPage({ page, setPage, user, setUser }) {
 	const [newName, setNewName] = useState("");
@@ -24,14 +26,19 @@ function SettingsPage({ page, setPage, user, setUser }) {
 			});
 	};
 
+	const minimizeSettings = ()=>{
+		setPage("")
+		setChangeNameToggle(false)
+	}
+
 	return (
 		<>
 			{isLoading && <Loading />}
 			<div
-				className={`bg-slate-900 p-4 rounded-t-2xl text-white max-w-xl flex flex-col gap-4 fixed -bottom-[59%] left-0 w-full transition-all duration-500 mx-auto h-[70%] z-20 inset-x-0 ${
-					page === "settings" && "-translate-y-[70%]"
+				className={`bg-slate-900 p-4 rounded-t-2xl text-white max-w-xl flex flex-col gap-4  fixed bottom-20 left-0 w-full transition-all duration-500 mx-auto h-[100%] z-20 inset-x-0 ${
+					page === "settings" ? "translate-y-[40%]" :" translate-y-[100%]"
 				}`}>
-				<div className="flex justify-between">
+				<div className="flex justify-between mb-2">
 					<div>
 						<p className="text-lg">{user.name}</p>
 						<div className="text-[8px] text-gray-300" onClick={() => navigator.clipboard.writeText(user.id)}>
@@ -39,16 +46,16 @@ function SettingsPage({ page, setPage, user, setUser }) {
 						</div>
 					</div>
 					<button
-						className="border-white border w-12 h-12 rounded-lg"
-						onClick={() => (page === "" ? setPage("settings") : setPage(""))}>
-						{page === "settings" ? "⬇️" : "⚙️"}
+						className="border-white border w-11 h-11 rounded-xl flex justify-center items-center"
+						onClick={() => (page === "" ? setPage("settings") : minimizeSettings())}>
+						{page === "settings" ? <IoIosArrowDown size={30} /> : <IoSettingsOutline size={25}/>}
 					</button>
 				</div>
-				{page === "settings" && (
 					<div>
 						<input
 							type="text"
 							className="text-black w-full rounded-lg p-2 mb-2"
+							placeholder="Enter You're new name"
 							value={newName}
 							onChange={(e) => setNewName(e.target.value)}
 						/>
@@ -60,10 +67,10 @@ function SettingsPage({ page, setPage, user, setUser }) {
 								onClick={() => changeNameToggle ? nameChangeHandler() : setChangeNameToggle(true)}>
 								{changeNameToggle ? "OK" : "Change Name"}
 							</button>
-							<button className={`bg-red-400 w-[30%] block absolute right-0 top-0 z-10 rounded-lg p-3`} onClick={()=>setChangeNameToggle(false)}>Cancel</button>
+							<button className={`bg-red-400 w-[30%] block absolute right-0 top-0 z-10 rounded-lg p-3`} onClick={()=>{setChangeNameToggle(false);setNewName("")}}>Cancel</button>
 						</div>
 					</div>
-				)}
+				
 			</div>
 		</>
 	);
