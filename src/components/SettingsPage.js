@@ -62,11 +62,11 @@ function SettingsPage({ page, setPage, user, setUser }) {
 					page === "settings" ? "translate-y-[40%]" : " translate-y-[100%]"
 				}`}>
 				<div className="flex justify-between items-center mb-2">
-					<p className="text-3xl ml-2">{user.name}</p>
+					<p className="text-xl truncate">{user.name}</p>
 					<button
-						className="border-white border w-11 h-11 rounded-xl flex justify-center items-center"
+						className="border-white border p-2 rounded-xl flex justify-center items-center"
 						onClick={() => (page === "" ? setPage("settings") : minimizeSettings())}>
-						{page === "settings" ? <IoIosArrowDown size={30} /> : <IoSettingsOutline size={25} />}
+						{page === "settings" ? <IoIosArrowDown size={25} /> : <IoSettingsOutline size={25} />}
 					</button>
 				</div>
 				<div className="flex justify-center">
