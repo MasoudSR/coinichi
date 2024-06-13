@@ -6,13 +6,16 @@ import React, { useEffect, useRef, useState } from "react";
 import Loading from "./Loading";
 import SignPage from "./SignPage";
 import SettingsPage from "./SettingsPage";
+import Bubble from "./modules/Bubble";
 
 function MainPage() {
 	const [user, setUser] = useState({});
 	const [coins, setCoins] = useState(0);
 	const [isStarted, setIsStarted] = useState(false);
-	const timeoutRef = useRef(null);
+	const syncTimeoutRef = useRef(null);
+	const startTimeoutRef = useRef(null);
 	const [page, setPage] = useState("loading");
+	const [bubbleText, setBubbleText] = useState("Tap On Me To Start");
 
 	useEffect(() => {
 		const userData = loadUser();
@@ -38,11 +41,11 @@ function MainPage() {
 
 	useEffect(() => {
 		if (isStarted) {
-			if (timeoutRef.current) {
-				clearTimeout(timeoutRef.current);
+			if (syncTimeoutRef.current) {
+				clearTimeout(syncTimeoutRef.current);
 			}
 
-			timeoutRef.current = setTimeout(() => {
+			syncTimeoutRef.current = setTimeout(() => {
 				fetch("api/user/coins", {
 					method: "PATCH",
 					headers: {
@@ -51,6 +54,15 @@ function MainPage() {
 					body: JSON.stringify({ id: user.id, coins }),
 				});
 			}, 2000);
+
+			if (startTimeoutRef.current) {
+				clearTimeout(startTimeoutRef.current);
+			}
+
+			startTimeoutRef.current = setTimeout(() => {
+				setIsStarted(false);
+				setBubbleText("Please, Tap On Me");
+			}, 5000);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [coins]);
@@ -69,6 +81,7 @@ function MainPage() {
 				<p className="drop-shadow-lg">🪙 {coins.toLocaleString()}</p>
 			</div>
 			<div className="flex justify-center z-0">
+				<Bubble isStarted={isStarted} bubbleText={bubbleText} />
 				<button onClick={coinClickHandler}>
 					<Image className="drop-shadow-lg" src="/coinichi.png" alt="Coinichi" width={300} height={300} priority />
 				</button>
