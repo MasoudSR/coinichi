@@ -10,6 +10,13 @@ export async function PATCH(req) {
 
 	const body = await req.json();
 
+	const regex = /^[A-Za-z0-9]+([A-Za-z0-9]*|[._-]?[A-Za-z0-9]+)*$/g;
+	const valid = body.newName.match(regex);
+
+	if (!valid) {
+		return Response.json({ error: "invalid name" }, { status: 400 });
+	}
+
 	const user = await User.findOne({ id: body.id });
 	user.name = body.newName;
 

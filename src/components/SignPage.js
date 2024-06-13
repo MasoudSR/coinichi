@@ -31,9 +31,6 @@ function SignPage({ setUser, setPage, setCoins }) {
 				if (res.ok) {
 					return res.json();
 				} else {
-                    // const errorMessage = res.json()
-                    // console.log(errorMessage)
-					// throw new Error(res);
                     return Promise.reject(res)
 				}
 			})

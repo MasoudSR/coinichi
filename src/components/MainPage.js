@@ -1,7 +1,6 @@
 "use client";
 
 import loadUser from "@/helpers/loadUser";
-import saveUser from "@/helpers/saveUser";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import Loading from "./Loading";

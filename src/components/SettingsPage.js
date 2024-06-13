@@ -7,8 +7,17 @@ function SettingsPage({ page, setPage, user, setUser }) {
 	const [newName, setNewName] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [changeNameToggle, setChangeNameToggle] = useState(false);
+	const [error, setError] = useState("");
+
+	const showError = (error) => {
+		setError(error);
+		setTimeout(() => {
+			setError("");
+		}, 7000);
+	};
 
 	const nameChangeHandler = () => {
+		setError("");
 		setIsLoading(true);
 		fetch("api/user/name", {
 			method: "PATCH",
@@ -17,26 +26,38 @@ function SettingsPage({ page, setPage, user, setUser }) {
 			},
 			body: JSON.stringify({ id: user.id, newName: newName }),
 		})
-			.then((res) => res.json())
+			.then((res) => {
+				if (res.ok) {
+					return res.json();
+				} else {
+					return Promise.reject(res);
+				}
+			})
 			.then((userData) => {
 				setUser(userData);
 				setIsLoading(false);
 				setNewName("");
-				setChangeNameToggle(false)
+				setChangeNameToggle(false);
+			})
+			.catch((res) => {
+				setIsLoading(false);
+				res.json().then((json) => {
+					showError(json.error);
+				});
 			});
 	};
 
-	const minimizeSettings = ()=>{
-		setPage("")
-		setChangeNameToggle(false)
-	}
+	const minimizeSettings = () => {
+		setPage("");
+		setChangeNameToggle(false);
+	};
 
 	return (
 		<>
 			{isLoading && <Loading />}
 			<div
 				className={`bg-slate-900 p-4 rounded-t-2xl text-white max-w-xl flex flex-col gap-4  fixed bottom-20 left-0 w-full transition-all duration-500 mx-auto h-[100%] z-20 inset-x-0 ${
-					page === "settings" ? "translate-y-[40%]" :" translate-y-[100%]"
+					page === "settings" ? "translate-y-[40%]" : " translate-y-[100%]"
 				}`}>
 				<div className="flex justify-between mb-2">
 					<div>
@@ -48,29 +69,43 @@ function SettingsPage({ page, setPage, user, setUser }) {
 					<button
 						className="border-white border w-11 h-11 rounded-xl flex justify-center items-center"
 						onClick={() => (page === "" ? setPage("settings") : minimizeSettings())}>
-						{page === "settings" ? <IoIosArrowDown size={30} /> : <IoSettingsOutline size={25}/>}
+						{page === "settings" ? <IoIosArrowDown size={30} /> : <IoSettingsOutline size={25} />}
 					</button>
 				</div>
-					<div>
-						<input
-							type="text"
-							className="text-black w-full rounded-lg p-2 mb-2"
-							placeholder="Enter You're new name"
-							value={newName}
-							onChange={(e) => setNewName(e.target.value)}
-						/>
-						<div className={`flex transition-all relative duration-500 ${
-									changeNameToggle || "-translate-y-[50px]"
-								}`}>
-							<button
-								className={`bg-blue-500 p-3  transition-all duration-500 z-20 rounded-lg w-full ${changeNameToggle ? "max-w-[67%]" : "max-w-[1000px]"}`}
-								onClick={() => changeNameToggle ? nameChangeHandler() : setChangeNameToggle(true)}>
-								{changeNameToggle ? "OK" : "Change Name"}
-							</button>
-							<button className={`bg-red-400 w-[30%] block absolute right-0 top-0 z-10 rounded-lg p-3`} onClick={()=>{setChangeNameToggle(false);setNewName("")}}>Cancel</button>
-						</div>
+				<div className="flex justify-center">
+					<p
+						className={`text-sm bg-red-500 flex justify-center items-center rounded-2xl transition-all duration-500 ${
+							error ? "w-full h-8 scale-100" : "w-0 h-0 scale-0"
+						} `}>
+						{error}
+					</p>
+				</div>
+				<div>
+					<input
+						type="text"
+						className="text-black w-full rounded-lg p-2 mb-2"
+						placeholder="Enter You're new name"
+						value={newName}
+						onChange={(e) => setNewName(e.target.value)}
+					/>
+					<div className={`flex transition-all relative duration-500 ${changeNameToggle || "-translate-y-[50px]"}`}>
+						<button
+							className={`bg-blue-500 p-3  transition-all duration-500 z-20 rounded-lg w-full ${
+								changeNameToggle ? "max-w-[67%]" : "max-w-[1000px]"
+							}`}
+							onClick={() => (changeNameToggle ? nameChangeHandler() : setChangeNameToggle(true))}>
+							{changeNameToggle ? "OK" : "Change Name"}
+						</button>
+						<button
+							className={`bg-red-400 w-[30%] block absolute right-0 top-0 z-10 rounded-lg p-3`}
+							onClick={() => {
+								setChangeNameToggle(false);
+								setNewName("");
+							}}>
+							Cancel
+						</button>
 					</div>
-				
+				</div>
 			</div>
 		</>
 	);
