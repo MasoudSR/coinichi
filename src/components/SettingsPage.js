@@ -81,7 +81,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 					<input
 						type="text"
 						className="text-black w-full rounded-lg p-2 mb-2"
-						placeholder="Enter You're New Name"
+						placeholder="Enter Your New Name"
 						value={newName}
 						onChange={(e) => setNewName(e.target.value)}
 					/>
@@ -118,7 +118,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 					</button>
 					<div className="p-4 flex text-white justify-between items-center">
 						<div>
-							<p className="text-[11px] sm:text-xs">Keep you&apos;re id to recover account</p>
+							<p className="text-[11px] sm:text-xs">Keep your id to recover account</p>
 							<p className="text-[15px] sm:text-xl">{user.id}</p>
 						</div>
 						<button

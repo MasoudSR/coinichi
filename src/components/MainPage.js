@@ -16,6 +16,19 @@ function MainPage() {
 	const startTimeoutRef = useRef(null);
 	const [page, setPage] = useState("loading");
 	const [bubbleText, setBubbleText] = useState("Tap On Me To Start");
+	const coinichiWords = [
+		"Please, Tap On Me",
+		"We need to Tap More",
+		"Finger Tap Dance Here",
+		"Tickle Me",
+		"Tap Me Baby, One More Time",
+		"Hit Me With Your Best Tap",
+		"Give Me a Tap Hug",
+		"Give Me Some Finger Love",
+		"Tap-Tastic Spot Here",
+		"Tickle My Pixels",
+		"Tap-Tap Hooray",
+	];
 
 	useEffect(() => {
 		const userData = loadUser();
@@ -61,7 +74,8 @@ function MainPage() {
 
 			startTimeoutRef.current = setTimeout(() => {
 				setIsStarted(false);
-				setBubbleText("Please, Tap On Me");
+				const randomWord = coinichiWords[Math.floor(Math.random() * coinichiWords.length)];
+				setBubbleText(randomWord);
 			}, 5000);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
