@@ -118,11 +118,11 @@ function SettingsPage({ page, setPage, user, setUser }) {
 					</button>
 					<div className="p-4 flex text-white justify-between items-center">
 						<div>
-							<p className="text-xs">Keep you&apos;re id to recover account</p>
-							<p>{user.id}</p>
+							<p className="text-[11px] sm:text-xs">Keep you&apos;re id to recover account</p>
+							<p className="text-[15px] sm:text-xl">{user.id}</p>
 						</div>
 						<button
-							className="flex flex-col border justify-center items-center rounded-lg h-12 w-12 border-gray-200"
+							className="flex flex-col border justify-center items-center rounded-lg h-10 w-10 sm:w-12 sm:h-12  border-gray-200"
 							onClick={() => navigator.clipboard.writeText(user.id)}>
 							<IoCopyOutline />
 							<span className="text-[8px]">Copy</span>
