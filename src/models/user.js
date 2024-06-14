@@ -9,6 +9,13 @@ const userSchema = new Schema({
 		type: String,
 		required: true,
 	},
+	password: {
+		type: String,
+	},
+	passwordProtected: {
+		type: Boolean,
+		required: true,
+	},
 	coins: {
 		type: Number,
 	},

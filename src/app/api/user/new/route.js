@@ -10,7 +10,7 @@ export async function GET() {
 	}
 
 	const id = nanoid();
-	await User.create({ id, name: "new user", coins: 0 });
+	await User.create({ id, name: "new user", passwordProtected:false , coins: 0 });
 
-	return Response.json({ id, name: "new user" });
+	return Response.json({ id, name: "new user", passwordProtected: false });
 }

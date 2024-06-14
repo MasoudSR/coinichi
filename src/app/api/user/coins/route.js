@@ -8,14 +8,19 @@ export async function POST(req) {
 		return Response.json({ error: "internal server error" }, { status: 500 });
 	}
 
-	const id = await req.json();
+	const userData = await req.json();
 
-	const user = await User.findOne({ id: id });
+	const user = await User.findOne({ id: userData.id });
 	if (!user) {
 		return Response.json({ error: "user not found" }, { status: 404 });
 	}
+	if (user.passwordProtected) {
+		if (userData.password !== user.password) {
+		return Response.json({ error: "ID or password is incorrect" }, { status: 401 });
+		}
+	}
 
-	return Response.json(user);
+	return Response.json({coins: user.coins , userData:{id:user.id,name:user.name,passwordProtected:user.passwordProtected}});
 }
 
 export async function PATCH(req) {

@@ -44,9 +44,9 @@ function MainPage() {
 				body: JSON.stringify(userData.id),
 			})
 				.then((res) => res.json())
-				.then((user) => {
-					setCoins(user.coins);
-					setUser({ id: user.id, name: user.name });
+				.then((data) => {
+					setCoins(data.coins);
+					setUser(data.userData);
 					setPage("");
 				});
 		}
