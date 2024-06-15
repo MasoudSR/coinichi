@@ -8,6 +8,7 @@ import SignPage from "./SignPage";
 import SettingsPage from "./SettingsPage";
 import Bubble from "./modules/Bubble";
 import LoginPage from "./LoginPage";
+import saveUser from "@/helpers/saveUser";
 
 function MainPage() {
 	const [user, setUser] = useState({});
@@ -35,7 +36,7 @@ function MainPage() {
 		const userData = loadUser();
 		if (userData === "notExist") {
 			setPage("signup");
-		}else if (userData.passwordProtected) {
+		}else if (userData.passwordProtected || typeof userData.passwordProtected === "undefined") {
 			setUser(userData);
 			setPage("login")
 		} else {

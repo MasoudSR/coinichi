@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Loading from "./Loading";
 import { IoSettingsOutline, IoCopyOutline } from "react-icons/io5";
 import { IoIosArrowDown } from "react-icons/io";
+import saveUser from "@/helpers/saveUser";
 
 function SettingsPage({ page, setPage, user, setUser }) {
 	const [newName, setNewName] = useState("");
@@ -84,6 +85,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 			}).then((data)=>{
 				console.log(data)
 				setUser(data.userData);
+				saveUser(data.userData)
 				setIsLoading(false);
 				setPasswordFields({ newPass: "", confirmPass: "", oldPass: "" })
 				setPasswordNotification({error : false , message:data.message});
