@@ -101,7 +101,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 		<>
 			{isLoading && <Loading />}
 			<div
-				className={`bg-slate-900 px-4 pt-4 rounded-t-2xl text-white max-w-xl flex flex-col gap-4 fixed bottom-20 left-0 w-full transition-all duration-500 mx-auto h-[70%] z-20 inset-x-0 ${
+				className={`bg-slate-900 px-4 pt-4 rounded-t-2xl text-white max-w-xl flex flex-col gap-4 fixed bottom-20 left-0 w-full transition-all duration-500 mx-auto h-[70%] z-10 inset-x-0 ${
 					page === "settings" ? "translate-y-20" : " translate-y-[100%]"
 				}`}>
 				<div className="flex justify-between items-center mb-2">
@@ -112,7 +112,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 						{page === "settings" ? <IoIosArrowDown size={25} /> : <IoSettingsOutline size={25} />}
 					</button>
 				</div>
-				<div className="overflow-scroll pb-4">
+				<div className="overflow-scroll pb-4 no-scrollbar">
 					<div className="flex justify-center mt-4">
 						<p
 							className={`text-sm bg-red-500 flex justify-center items-center rounded-2xl transition-all duration-500 ${
@@ -182,7 +182,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 								passwordBtnToggle ? "bg-cyan-400 text-black" : "bg-cyan-600 text-white"
 							} `}
 							onClick={() => setPasswordBtnToggle(!passwordBtnToggle)}>
-							{passwordBtnToggle ? "Set Password" : "Change Password"}
+							{user.passwordProtected ? "Change Password" : "Set Password"}
 						</button>
 						<div className="p-4 gap-3 flex flex-col text-white justify-between items-center">
 							<p
