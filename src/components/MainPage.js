@@ -8,7 +8,6 @@ import SignPage from "./SignPage";
 import SettingsPage from "./SettingsPage";
 import Bubble from "./modules/Bubble";
 import LoginPage from "./LoginPage";
-import saveUser from "@/helpers/saveUser";
 
 function MainPage() {
 	const [user, setUser] = useState({});
@@ -46,7 +45,7 @@ function MainPage() {
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify(userData.id),
+				body: JSON.stringify(userData),
 			})
 				.then((res) => res.json())
 				.then((data) => {
