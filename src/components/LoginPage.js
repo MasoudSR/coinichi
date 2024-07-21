@@ -47,7 +47,7 @@ function LoginPage({ user, setUser, setPage, setCoins }) {
 					<form className="flex flex-col gap-2" action={loginHandler}>
 						<input
 							type="password"
-							className="rounded-lg p-1 text-black"
+							className="rounded-2xl p-1 text-black focus:outline-none focus:shadow-inner pl-3"
 							placeholder="Your Password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
@@ -63,7 +63,7 @@ function LoginPage({ user, setUser, setPage, setCoins }) {
 						onClick={() => {
 							setPage("signup");
 						}}>
-						Signin or create another account
+						Create Another Account
 					</button>
 				</div>
 			</div>

@@ -1,12 +1,14 @@
 import saveUser from "@/helpers/saveUser";
 import React, { useState } from "react";
 import Loading from "./Loading";
+import { IoIosArrowForward } from "react-icons/io";
 
 function SignPage({ setUser, setPage, setCoins }) {
 	const [id, setId] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [showPasswordField, setShowPasswordField] = useState(false);
 
 	const newAccHandler = () => {
 		setIsLoading(true);
@@ -26,7 +28,7 @@ function SignPage({ setUser, setPage, setCoins }) {
 			headers: {
 				"Content-Type": "application/json",
 			},
-			body: JSON.stringify({id , password}),
+			body: JSON.stringify({ id, password }),
 		})
 			.then((res) => {
 				if (res.ok) {
@@ -59,18 +61,33 @@ function SignPage({ setUser, setPage, setCoins }) {
 					<form className="flex flex-col gap-2" action={signinHandler}>
 						<input
 							type="text"
-							className="rounded-lg p-1 text-black"
+							className="rounded-2xl p-1 text-black pl-3 focus:outline-none focus:shadow-inner"
 							placeholder="Your ID"
 							value={id}
 							onChange={(e) => setId(e.target.value)}
 						/>
-						<input
-							type="password"
-							className="rounded-lg p-1 text-black"
-							placeholder="Your Password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-						/>
+						<div className="relative overflow-hidden rounded-2xl">
+							<div
+								className={`absolute bg-sky-500 p-1 border border-white w-full rounded-2xl flex items-center gap-2 cursor-pointer select-none transition-all duration-500 ${
+									showPasswordField && "translate-x-[86%]"
+								}`}
+								onClick={() => (showPasswordField ? setShowPasswordField(false) : setShowPasswordField(true))}>
+								<div
+									className={`bg-white p-1 rounded-full text-sky-500 transition-all duration-500 ${
+										showPasswordField && "rotate-180"
+									}`}>
+									<IoIosArrowForward />
+								</div>{" "}
+								I have a password
+							</div>
+							<input
+								type="password"
+								className="rounded-2xl p-1 text-black pl-3 border focus:outline-none focus:shadow-inner"
+								placeholder="Your Password"
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+							/>
+						</div>
 						<button type="submit" className="bg-blue-500 p-2 rounded-lg">
 							Submit
 						</button>

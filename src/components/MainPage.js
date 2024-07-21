@@ -35,9 +35,9 @@ function MainPage() {
 		const userData = loadUser();
 		if (userData === "notExist") {
 			setPage("signup");
-		}else if (userData.passwordProtected || typeof userData.passwordProtected === "undefined") {
+		} else if (userData.passwordProtected || typeof userData.passwordProtected === "undefined") {
 			setUser(userData);
-			setPage("login")
+			setPage("login");
 		} else {
 			// get user coins from api
 			fetch("api/user/coins", {
