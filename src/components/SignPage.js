@@ -54,7 +54,7 @@ function SignPage({ setUser, setPage, setCoins }) {
 	return (
 		<>
 			{isLoading && <Loading />}
-			<div className="fixed flex justify-center items-center bg-gray-500/20 w-full h-full z-20 backdrop-blur-md">
+			<div className="fixed flex justify-center items-center bg-gray-500/20 w-full h-full top-0 z-20 backdrop-blur-md">
 				<div className="p-4 rounded-xl bg-yellow-800/70 text-white flex flex-col gap-3">
 					<p>Signin Using ID:</p>
 					{error && <p className="text-sm bg-red-500 p-1 text-center rounded-2xl">{error}</p>}

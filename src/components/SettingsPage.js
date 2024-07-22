@@ -59,18 +59,18 @@ function SettingsPage({ page, setPage, user, setUser }) {
 		setChangeNameToggle(false);
 		setShowId(false);
 		setPasswordBtnToggle(false);
-		setLogoutBtnToggle(false)
+		setLogoutBtnToggle(false);
 	};
 
-	const logout = ()=>{
-        localStorage.removeItem("user")
-		setUser({})
-        setPage("signup")
+	const logout = () => {
+		localStorage.removeItem("user");
+		setUser({});
+		setPage("signup");
 		setChangeNameToggle(false);
 		setShowId(false);
 		setPasswordBtnToggle(false);
-		setLogoutBtnToggle(false)
-    }
+		setLogoutBtnToggle(false);
+	};
 
 	const setPasswordHandler = () => {
 		if (user.passwordProtected && !passwordFields.oldPass) {
@@ -129,8 +129,8 @@ function SettingsPage({ page, setPage, user, setUser }) {
 						{page === "settings" ? <IoIosArrowDown size={25} /> : <IoSettingsOutline size={25} />}
 					</button>
 				</div>
-				<div className="overflow-scroll pb-4 no-scrollbar h-full">
-					<div className="flex flex-col justify-between h-full">
+				<div className="overflow-scroll no-scrollbar h-full">
+					<div className="flex flex-col justify-between h-full pb-4">
 						<div>
 							<div className="flex justify-center mt-4">
 								<p
@@ -246,7 +246,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 								</div>
 							</div>
 						</div>
-						<LogOutBtn toggle={logoutBtnToggle} setToggle={setLogoutBtnToggle} logout={logout}/>
+						<LogOutBtn toggle={logoutBtnToggle} setToggle={setLogoutBtnToggle} logout={logout} />
 					</div>
 				</div>
 			</div>

@@ -39,7 +39,7 @@ function LoginPage({ user, setUser, setPage, setCoins }) {
 	return (
 		<>
 			{isLoading && <Loading />}
-			<div className="fixed flex justify-center items-center bg-gray-500/20 w-full h-full z-20 backdrop-blur-md">
+			<div className="fixed flex justify-center items-center bg-gray-500/20 w-full h-full top-0 z-20 backdrop-blur-md">
 				<div className="p-4 rounded-xl bg-yellow-800/70 text-white flex flex-col gap-3">
 					<p className="text-lg">Welcome back, {user.name}</p>
 					<p className="text-xs">Please enter your password</p>
