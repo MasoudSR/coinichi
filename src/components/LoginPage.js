@@ -45,12 +45,14 @@ function LoginPage({ user, setUser, setPage, setCoins }) {
 					<p className="text-xs">Please enter your password</p>
 					{error && <p className="text-sm bg-red-500 p-1 text-center rounded-2xl">{error}</p>}
 					<form className="flex flex-col gap-2" action={loginHandler}>
+						<input hidden type="text" autoComplete="username" defaultValue={user.id || ""} />
 						<input
 							type="password"
 							className="rounded-2xl p-1 text-black focus:outline-none focus:shadow-inner pl-3"
 							placeholder="Your Password"
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
+							autoComplete="current-password"
 						/>
 						<button type="submit" className="bg-blue-500 p-2 rounded-lg">
 							Submit

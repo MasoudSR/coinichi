@@ -65,6 +65,7 @@ function SignPage({ setUser, setPage, setCoins }) {
 							placeholder="Your ID"
 							value={id}
 							onChange={(e) => setId(e.target.value)}
+							autoComplete="username"
 						/>
 						<div className="relative overflow-hidden rounded-2xl">
 							<div
@@ -86,6 +87,7 @@ function SignPage({ setUser, setPage, setCoins }) {
 								placeholder="Your Password"
 								value={password}
 								onChange={(e) => setPassword(e.target.value)}
+								autoComplete="current-password"
 							/>
 						</div>
 						<button type="submit" className="bg-blue-500 p-2 rounded-lg">

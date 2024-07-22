@@ -143,10 +143,11 @@ function SettingsPage({ page, setPage, user, setUser }) {
 							<div className={`transition-all duration-500 ${changeNameToggle ? "h-28" : "h-12"}`}>
 								<input
 									type="text"
-									className="text-black w-full rounded-lg p-2 mb-2"
+									className="text-black w-full rounded-lg p-2 mb-2 focus:outline-none focus:shadow-[inset_0_0_5px_rgba(50,50,93,0.25)]"
 									placeholder="Enter Your New Name"
 									value={newName}
 									onChange={(e) => setNewName(e.target.value)}
+									autoComplete="nickname"
 								/>
 								<div
 									className={`flex transition-all relative duration-500 ${changeNameToggle || "-translate-y-[50px]"}`}>
@@ -212,14 +213,19 @@ function SettingsPage({ page, setPage, user, setUser }) {
 										{passwordNotification.message}
 									</p>
 									<form className="flex flex-col gap-3 w-full" action={setPasswordHandler}>
+										<input hidden type="text" defaultValue={user.id || ""} autoComplete="username" />
 										{user.passwordProtected ? (
-											<input
-												className="text-black p-2 rounded-md"
-												placeholder="Current Password"
-												type="password"
-												value={passwordFields.oldPass}
-												onChange={(e) => setPasswordFields((pre) => ({ ...pre, oldPass: e.target.value }))}
-											/>
+											<>
+												<input hidden type="text" defaultValue={user.id || ""} autoComplete="username" />
+												<input
+													className="text-black p-2 rounded-md"
+													placeholder="Current Password"
+													type="password"
+													value={passwordFields.oldPass}
+													onChange={(e) => setPasswordFields((pre) => ({ ...pre, oldPass: e.target.value }))}
+													autoComplete="current-password"
+												/>
+											</>
 										) : (
 											<p className="text-[11px] sm:text-xs">Set a password to protect your account</p>
 										)}
@@ -229,6 +235,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 											type="password"
 											value={passwordFields.newPass}
 											onChange={(e) => setPasswordFields((pre) => ({ ...pre, newPass: e.target.value }))}
+											autoComplete="new-password"
 										/>
 										<input
 											className="text-black p-2 rounded-md"
@@ -236,6 +243,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 											type="password"
 											value={passwordFields.confirmPass}
 											onChange={(e) => setPasswordFields((pre) => ({ ...pre, confirmPass: e.target.value }))}
+											autoComplete="new-password"
 										/>
 										<button
 											className="flex flex-col border-2 border-sky-200 justify-center items-center rounded-lg p-3"
