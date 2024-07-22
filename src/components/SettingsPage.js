@@ -132,7 +132,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 				<div className="overflow-scroll no-scrollbar h-full">
 					<div className="flex flex-col justify-between h-full">
 						<div>
-							<div className="flex justify-center mt-4">
+							<div className="flex justify-center mb-2">
 								<p
 									className={`text-sm bg-red-500 flex justify-center items-center rounded-2xl transition-all duration-500 ${
 										error ? "w-full h-8 scale-100" : "w-0 h-0 scale-0"
