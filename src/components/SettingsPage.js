@@ -130,7 +130,7 @@ function SettingsPage({ page, setPage, user, setUser }) {
 					</button>
 				</div>
 				<div className="overflow-scroll no-scrollbar h-full">
-					<div className="flex flex-col justify-between h-full pb-4">
+					<div className="flex flex-col justify-between h-full">
 						<div>
 							<div className="flex justify-center mt-4">
 								<p
