@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
 		<html lang="en">
 			<head>
 				<link rel="icon" href="/favicon.ico" sizes="any" />
+        <meta name="theme-color" content="#6366f1" />
 			</head>
 			<body className={inter.className}>{children}</body>
 		</html>
